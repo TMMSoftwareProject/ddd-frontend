@@ -15,7 +15,6 @@ export default function LoginScreen({navigation}) {
         auth
             .signInWithEmailAndPassword(email, password)
             .then((response) => {
-                console.log(response);
                 const uid = response.user.uid
                 const usersRef = app.firestore().collection('users')
                 usersRef
@@ -27,7 +26,6 @@ export default function LoginScreen({navigation}) {
                             return;
                         }
                         const user = firestoreDocument.data()
-                        navigation.navigate('Home', {user})
                     })
                     .catch(error => {
                         alert(error)
