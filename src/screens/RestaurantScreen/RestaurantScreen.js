@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 
-export default function RestaurantScreen(props, { extraData }) {
+export default function RestaurantScreen(props) {
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView

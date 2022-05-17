@@ -5,7 +5,7 @@ import styles from "./styles";
 import { auth, app } from "../../firebase/config";
 
 export default function RegistrationScreen({ navigation }) {
-  const [fullName, setFullName] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -26,7 +26,8 @@ export default function RegistrationScreen({ navigation }) {
         const data = {
           id: uid,
           email,
-          fullName,
+          displayName,
+          role: "subscriber",
         };
         const usersRef = app.firestore().collection("users");
         usersRef
@@ -54,10 +55,10 @@ export default function RegistrationScreen({ navigation }) {
         />
         <TextInput
           style={styles.input}
-          placeholder="Full Name"
+          placeholder="Display Name"
           placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setFullName(text)}
-          value={fullName}
+          onChangeText={(text) => setDisplayName(text)}
+          value={displayName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { auth } from "../../firebase/config";
 import styles from "./styles";
+import firebase from "firebase";
 
-export default function HomeScreen(props, { extraData }) {
+export default function HomeScreen(props) {
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView
@@ -26,6 +28,15 @@ export default function HomeScreen(props, { extraData }) {
             style={styles.headerLink}
           >
             Your Restaurant
+          </Text>
+
+          <Text
+            onPress={() =>
+              auth.signOut().then(() => console.log("User signed out"))
+            }
+            style={styles.headerLink}
+          >
+            Sign Out
           </Text>
         </View>
         <Text>Home Screen</Text>

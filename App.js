@@ -9,8 +9,9 @@ import {
   RestaurantScreen,
 } from "./src/screens";
 import { registerRootComponent } from "expo";
-import { auth } from "./src/firebase/config";
+import { app, auth } from "./src/firebase/config";
 import { decode, encode } from "base-64";
+import firebase from "firebase";
 if (!global.btoa) {
   global.btoa = encode;
 }
@@ -22,29 +23,27 @@ const Stack = createStackNavigator();
 
 export default function App() {
   const [initializing, setInitializing] = useState(true);
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
-  function onAuthStateChanged(user) {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  }
-  useEffect(() => {
-    const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, []);
-  if (initializing) return null;
+  const [user, setUser] = useState();
 
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+  }, []);
+
+  const User = firebase.auth().currentUser;
+  console.log("USER!", User);
   return (
     <NavigationContainer>
       <Stack.Navigator>
         {user ? (
           <>
             <Stack.Screen name="Home">
-              {(props) => <HomeScreen {...props} extraData={user} />}
+              {(props) => <HomeScreen {...props} />}
             </Stack.Screen>
 
             <Stack.Screen name="Restaurant">
-              {(props) => <RestaurantScreen {...props} extraData={user} />}
+              {(props) => <RestaurantScreen {...props} />}
             </Stack.Screen>
           </>
         ) : (
