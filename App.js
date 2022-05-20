@@ -26,13 +26,13 @@ export default function App() {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setUser(user);
+    auth.onAuthStateChanged((newUser) => {
+      console.log("STATE CHANGED!");
+      setUser(newUser);
     });
-  }, []);
+  }, [auth]);
 
   const User = firebase.auth().currentUser;
-  console.log("USER!", User);
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -43,7 +43,7 @@ export default function App() {
             </Stack.Screen>
 
             <Stack.Screen name="Restaurant">
-              {(props) => <RestaurantScreen {...props} />}
+              {(props) => <RestaurantScreen {...props} user={user} />}
             </Stack.Screen>
           </>
         ) : (
