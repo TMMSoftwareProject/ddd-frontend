@@ -7,6 +7,7 @@ import {
   HomeScreen,
   RegistrationScreen,
   RestaurantScreen,
+  FoodScreen,
 } from "./src/screens";
 import { registerRootComponent } from "expo";
 import { app, auth } from "./src/firebase/config";
@@ -22,28 +23,29 @@ if (!global.atob) {
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     auth.onAuthStateChanged((newUser) => {
-      console.log("STATE CHANGED!");
       setUser(newUser);
     });
   }, [auth]);
 
-  const User = firebase.auth().currentUser;
   return (
     <NavigationContainer>
       <Stack.Navigator>
         {user ? (
           <>
             <Stack.Screen name="Home">
-              {(props) => <HomeScreen {...props} />}
+              {(props) => <HomeScreen {...props} user={user} />}
             </Stack.Screen>
 
             <Stack.Screen name="Restaurant">
               {(props) => <RestaurantScreen {...props} user={user} />}
+            </Stack.Screen>
+
+            <Stack.Screen name="Food">
+              {(props) => <FoodScreen {...props} user={user} />}
             </Stack.Screen>
           </>
         ) : (

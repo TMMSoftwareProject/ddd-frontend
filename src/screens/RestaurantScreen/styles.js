@@ -33,4 +33,38 @@ export default StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#FDE12D",
   },
+  foods: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+    marginTop: 10,
+  },
+  food: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "orange",
+    padding: 12,
+    borderRadius: 10,
+  },
+  foodhead: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 2,
+    width: "100%",
+  },
+  foodname: {
+    flex: 1,
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  foodprice: {
+    flex: 1,
+    fontWeight: "bold",
+    fontSize: 15,
+  },
 });
